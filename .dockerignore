@@ -1,0 +1,8 @@
+console/node_modules
+console/dist
+runs
+tests
+**/__pycache__
+.pytest_cache
+.env
+*.sqlite

@@ -1,0 +1,17 @@
+# Render Blueprint: free web service built from the Dockerfile.
+# In Render: New -> Blueprint -> pick this repo. It asks for GROQ_API_KEY (free at console.groq.com)
+# and generates a random TOWER_ACCESS_KEY you can copy from the Environment tab.
+services:
+  - type: web
+    name: tower
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/scenario
+    envVars:
+      - key: TOWER_LLM_PROVIDER
+        value: groq            # a free server has no room for Ollama; use "rules" for no LLM at all
+      - key: GROQ_API_KEY
+        sync: false            # you paste it in the Render dashboard; never commit it
+      - key: TOWER_ACCESS_KEY
+        generateValue: true    # only links with ?key=<this> can control the mission

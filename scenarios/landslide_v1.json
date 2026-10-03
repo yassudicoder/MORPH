@@ -1,0 +1,115 @@
+{
+  "name": "landslide_v1",
+  "title": "Monsoon landslide, Western Ghats hamlet",
+  "world": {"width": 1200, "height": 640},
+  "base": {"pos": [60, 60], "antenna_m": 10},
+
+  "sectors": {
+    "A": {"rect": [300, 340, 580, 600]},
+    "B": {"rect": [580, 340, 860, 600]},
+    "C": {"rect": [860, 340, 1140, 600]},
+    "D": {"rect": [300, 80, 580, 340]},
+    "E": {"rect": [580, 80, 860, 340]},
+    "F": {"rect": [860, 80, 1140, 340]}
+  },
+
+  "places": {
+    "BASE":       {"pos": [60, 60],    "aliases": ["base", "ground station", "tower"]},
+    "SHELTER":    {"pos": [1090, 165], "aliases": ["shelter", "relief shelter", "community hall", "shelter in f"]},
+    "TEMPLE":     {"pos": [420, 500],  "aliases": ["temple"]},
+    "SCHOOL":     {"pos": [440, 200],  "aliases": ["school"]},
+    "MARKET":     {"pos": [720, 480],  "aliases": ["market", "old market"]},
+    "CLINIC":     {"pos": [700, 140],  "aliases": ["clinic", "health centre", "health center", "phc"]},
+    "WATER_TANK": {"pos": [1000, 560], "aliases": ["water tank", "tank"]},
+    "BRIDGE":     {"pos": [885, 88],   "aliases": ["lower bridge", "bridge"]},
+    "DAM":        {"pos": [240, 600],  "aliases": ["dam", "spillway"]}
+  },
+
+  "no_fly": [
+    {"id": "NF-1", "why": "dam spillway, power lines", "poly": [[180, 560], [290, 560], [290, 640], [180, 640]]}
+  ],
+
+  "river": [[905, 640], [885, 540], [900, 430], [875, 320], [890, 200], [870, 90], [880, 0]],
+
+  "ridge": {"center": [975, 205], "rx": 48, "ry": 90, "height_m": 95},
+
+  "roads": {
+    "nodes": {
+      "BASE_N": [70, 70], "L1": [300, 70], "L2": [560, 60], "L3": [760, 75], "BRL": [885, 88],
+      "L4": [990, 92], "SH": [1085, 160], "SC": [440, 190],
+      "U1": [180, 250], "U2": [360, 420], "U3": [600, 470], "U4": [780, 480], "BRU": [895, 470],
+      "U5": [1000, 470], "U6": [1100, 380], "M1": [610, 250]
+    },
+    "edges": [
+      ["BASE_N", "L1", "lower road"], ["L1", "L2", "lower road"], ["L2", "L3", "lower road"],
+      ["L3", "BRL", "lower road"], ["BRL", "L4", "lower bridge"], ["L4", "SH", "lower road"],
+      ["L1", "SC", "school lane"],
+      ["BASE_N", "U1", "upper road"], ["U1", "U2", "upper road"], ["U2", "U3", "upper road"],
+      ["U3", "U4", "upper road"], ["U4", "BRU", "upper road"], ["BRU", "U5", "upper bridge"],
+      ["U5", "U6", "upper road"], ["U6", "SH", "upper road"],
+      ["L2", "M1", "connector"], ["M1", "U3", "connector"]
+    ],
+    "offroad_max_m": 100
+  },
+
+  "rally_points": {
+    "R1": [150, 130],
+    "R2": [960, 40],
+    "R3": [620, 600]
+  },
+
+  "radio": {
+    "tx_dbm": 27, "pl_d0_db": 40, "exponent": 2.2, "ridge_loss_db": 25,
+    "usable_dbm": -90, "warn_dbm": -85, "bandwidth_Bps": 6250,
+    "drone_alt_m": 40, "rover_ant_m": 1.5, "relay_alt_above_ridge_m": 25
+  },
+
+  "sensing": {"footprint_m": 30, "swath_m": 50, "detect_p_per_s": 0.7, "inspect_s": 20},
+
+  "fleet": [
+    {"id": "SCOUT-1", "kind": "quad", "caps": ["fly", "camera"], "speed": 12, "survey_speed": 6,
+     "endurance_s": 1320, "kits": 0, "kg": 0, "radio_gain_db": 0, "spawn": [50, 80], "label": "quad, thermal camera"},
+    {"id": "SCOUT-2", "kind": "quad", "caps": ["fly", "camera"], "speed": 12, "survey_speed": 6,
+     "endurance_s": 1320, "kits": 0, "kg": 0, "radio_gain_db": 0, "spawn": [70, 80], "label": "quad, thermal camera (PX4 in Gazebo)"},
+    {"id": "LIFT-1", "kind": "hex", "caps": ["fly", "deliver"], "speed": 9, "survey_speed": 9,
+     "endurance_s": 900, "kits": 3, "kg": 0, "radio_gain_db": 0, "spawn": [50, 45], "label": "hex, 3 medical kits"},
+    {"id": "RELAY-1", "kind": "quad", "caps": ["fly", "relay"], "speed": 10, "survey_speed": 10,
+     "endurance_s": 1800, "kits": 0, "kg": 0, "radio_gain_db": 6, "spawn": [70, 45], "label": "quad, radio relay"},
+    {"id": "ROVER-1", "kind": "ugv", "caps": ["ground", "deliver", "transport"], "speed": 2, "survey_speed": 2,
+     "endurance_s": 14400, "kits": 6, "kg": 20, "radio_gain_db": 0, "spawn": [85, 60], "label": "ground robot, 20 kg"},
+    {"id": "ROVER-2", "kind": "ugv", "caps": ["ground", "deliver", "transport"], "speed": 2, "survey_speed": 2,
+     "endurance_s": 14400, "kits": 6, "kg": 20, "radio_gain_db": 0, "spawn": [85, 75], "label": "ground robot, 20 kg"}
+  ],
+
+  "truth": {
+    "survivors": [
+      {"id": "S1", "pos": [1010, 500], "count": 3},
+      {"id": "S2", "pos": [1080, 255], "count": 2}
+    ],
+    "decoys": [
+      {"id": "X1", "pos": [700, 205], "what": "warm cattle shed"}
+    ],
+    "wind": [4, 0]
+  },
+
+  "default_objective": "Search sectors A to F for survivors and drop a medical kit to anyone found. Take 20 kg of relief supplies to the shelter in F. Keep radio contact with both rovers. Finish in 45 minutes and keep 15% battery reserve.",
+
+  "timeline": [
+    {"at": 300, "kind": "debris", "args": {"pos": [825, 81]}, "label": "Landslide debris on the lower road"},
+    {"at": 620, "kind": "wind", "args": {"speed": 11}, "label": "Wind rises to 11 m/s"},
+    {"at": 840, "kind": "report", "args": {"text": "Villagers report someone trapped near the temple. Check it and deliver a kit if needed."}, "label": "Villager report about the temple (goal change)"},
+    {"at": 1150, "kind": "agent_fail", "args": {"agent": "RELAY-1"}, "label": "RELAY-1 motor failure"}
+  ],
+
+  "presets": [
+    {"kind": "debris", "args": {"pos": [825, 81]}, "label": "Debris on lower road"},
+    {"kind": "agent_fail", "args": {"agent": "RELAY-1"}, "label": "Kill RELAY-1"},
+    {"kind": "agent_fail", "args": {"agent": "SCOUT-1"}, "label": "Kill SCOUT-1"},
+    {"kind": "wind", "args": {"speed": 11}, "label": "Wind 11 m/s"},
+    {"kind": "wind", "args": {"speed": 4}, "label": "Wind back to 4 m/s"},
+    {"kind": "battery_fault", "args": {"agent": "SCOUT-2", "drop_pct": 35}, "label": "SCOUT-2 battery cell fault"},
+    {"kind": "blackout", "args": {"center": [1000, 470], "radius": 220, "duration": 150}, "label": "Radio blackout over C"},
+    {"kind": "survivor", "args": {"pos": [430, 470], "count": 1}, "label": "Hidden survivor appears in A"},
+    {"kind": "report", "args": {"text": "Villagers report someone trapped near the temple. Check it and deliver a kit if needed."}, "label": "Villager report: temple (goal change)"}
+  ]
+}
